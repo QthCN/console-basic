@@ -8,6 +8,7 @@ import tornado.ioloop
 import tornado.httpserver
 
 from console_basic import config
+from console_basic.handlers.helloworld import HelloWorldHandler
 
 
 CONF = cfg.CONF
@@ -16,12 +17,16 @@ CONF = cfg.CONF
 class Application(tornado.web.Application):
 
     def __init__(self):
-        handlers = []
+        handlers = [
+            (r"/", HelloWorldHandler)
+        ]
         settings = dict(
             blog_title="console",
             template_path=os.path.join(os.path.dirname(__file__),
+                                       "..",
                                        "templates"),
             static_path=os.path.join(os.path.dirname(__file__),
+                                     "..",
                                      "static"),
             debug=True,
             cookie_secret="61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
